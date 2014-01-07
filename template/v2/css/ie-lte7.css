@@ -1,0 +1,17 @@
+.subNav li {
+	line-height: normal;
+}
+.subNav li a {
+	/*height: 15px;*/
+}
+#cse-search-form .gsc-search-button {
+	display: block;
+	width: 20px;
+	padding: 20px 0 0 0;
+	overflow: hidden;
+   	background: transparent url(../images/icons/arrow-right-blue.png) 8px 2px no-repeat;
+	height: 0px !important;
+	height /**/: 20px;
+	border: none;
+	margin: 0 0 0 8px;;
+}

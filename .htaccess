@@ -1,0 +1,441 @@
+##
+# @version		$Id: htaccess.txt 21101 2011-04-07 15:47:33Z dextercowley $
+# @package		Joomla
+# @copyright	Copyright (C) 2005 - 2011 Open Source Matters. All rights reserved.
+# @license		GNU General Public License version 2 or later; see LICENSE.txt
+##
+
+##
+# READ THIS COMPLETELY IF YOU CHOOSE TO USE THIS FILE!
+#
+# The line just below this section: 'Options +FollowSymLinks' may cause problems
+# with some server configurations.  It is required for use of mod_rewrite, but may already
+# be set by your server administrator in a way that dissallows changing it in
+# your .htaccess file.  If using it causes your server to error out, comment it out (add # to
+# beginning of line), reload your site in your browser and test your sef url's.  If they work,
+# it has been set by your server administrator and you do not need it set here.
+##
+
+## Can be commented out if causes errors, see notes above.
+Options +FollowSymLinks
+
+## Mod_rewrite in use.
+
+RewriteEngine On
+
+## Begin - Rewrite rules to block out some common exploits.
+# If you experience problems on your site block out the operations listed below
+# This attempts to block the most common type of exploit `attempts` to Joomla!
+#
+# Block out any script trying to base64_encode data within the URL.
+RewriteCond %{QUERY_STRING} base64_encode[^(]*\([^)]*\) [OR]
+# Block out any script that includes a <script> tag in URL.
+RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC,OR]
+# Block out any script trying to set a PHP GLOBALS variable via URL.
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+# Block out any script trying to modify a _REQUEST variable via URL.
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+# Return 403 Forbidden header and show the content of the root homepage
+RewriteRule .* index.php [F]
+#
+## End - Rewrite rules to block out some common exploits.
+
+## Begin - Custom redirects
+#
+# If you need to redirect some pages, or set a canonical non-www to
+# www redirect (or vice versa), place that code here. Ensure those
+# redirects use the correct RewriteRule syntax and the [R=301,L] flags.
+#
+
+#Old blog posts - SE 22/08/2011
+
+RewriteRule ^2008/08/22/beth-tweddles-gymnastic-update-direct-from-beijing(.*)$ /news-and-events/latest-news/view/1967-beth-tweddles-gymnastic-update-direct-from-beijing$1 [R=301,L]
+RewriteRule ^2008/08/22/welcome-from-sadie(.*)$ /news-and-events/latest-news/view/1955-welcome-from-sadie$1 [R=301,L]
+RewriteRule ^2008/10/23/olympicgold(.*)$ /news-and-events/latest-news/view/3234-olympicgold$1 [R=301,L]
+RewriteRule ^2008/11/28/crawley-schools-badmintion-competition-k2(.*)$ /news-and-events/latest-news/view/5985-crawley-schools-badmintion-competition-k2$1 [R=301,L]
+RewriteRule ^2008/11/28/department-of-health-support-for-csps(.*)$ /news-and-events/latest-news/view/6016-department-of-health-support-for-csps$1 [R=301,L]
+RewriteRule ^2008/11/28/scsp-website-update(.*)$ /news-and-events/latest-news/view/6008-scsp-website-update$1 [R=301,L]
+RewriteRule ^2008/11/28/sussex-sport-and-health-network(.*)$ /news-and-events/latest-news/view/5958-sussex-sport-and-health-network$1 [R=301,L]
+RewriteRule ^2008/12/05/the-active-people-survey-2(.*)$ /news-and-events/latest-news/view/6468-the-active-people-survey-2$1 [R=301,L]
+RewriteRule ^2008/12/10/clare-strange-and-donna-fraser-step-into-sport(.*)$ /news-and-events/latest-news/view/7091-clare-strange-and-donna-fraser-step-into-sport$1 [R=301,L]
+RewriteRule ^2008/12/12/active-people-2-survey-results(.*)$ /news-and-events/latest-news/view/7143-active-people-2-survey-results$1 [R=301,L]
+RewriteRule ^2008/12/18/480-million-investment-in-46-sports(.*)$ /news-and-events/latest-news/view/8116-480-million-investment-in-46-sports$1 [R=301,L]
+RewriteRule ^2009/01/06/the-big-challenge-competition-closes-soon(.*)$ /news-and-events/latest-news/view/8178-the-big-challenge-competition-closes-soon$1 [R=301,L]
+RewriteRule ^2009/01/07/sports-club-of-the-year-awards-2009(.*)$ /news-and-events/latest-news/view/8275-sports-club-of-the-year-awards-2009$1 [R=301,L]
+RewriteRule ^2009/01/07/the-obesity-challenge-cooking-up-a-storm(.*)$ /news-and-events/latest-news/view/8312-the-obesity-challenge-cooking-up-a-storm$1 [R=301,L]
+RewriteRule ^2009/01/12/fitness-friday-east-grinstead-sports-club(.*)$ /news-and-events/latest-news/view/8831-fitness-friday-east-grinstead-sports-club$1 [R=301,L]
+RewriteRule ^2009/01/12/sussex-paralympic-heroes-recognised-in-new-year-honours-list(.*)$ /news-and-events/latest-news/view/8841-sussex-paralympic-heroes-recognised-in-new-year-honours-list$1 [R=301,L]
+RewriteRule ^2009/01/15/east-sussex-development-awards(.*)$ /news-and-events/latest-news/view/9147-east-sussex-development-awards$1 [R=301,L]
+RewriteRule ^2009/01/19/community-sports-funding(.*)$ /news-and-events/latest-news/view/9708-community-sports-funding$1 [R=301,L]
+RewriteRule ^2009/01/19/sport-englands-new-weekly-policy-tracker(.*)$ /news-and-events/latest-news/view/9701-sport-englands-new-weekly-policy-tracker$1 [R=301,L]
+RewriteRule ^2009/01/23/primary-schools-football-district-cup-county-finals(.*)$ /news-and-events/latest-news/view/10620-primary-schools-football-district-cup-county-finals$1 [R=301,L]
+RewriteRule ^2009/01/29/are-you-fit-for-business(.*)$ /news-and-events/latest-news/view/11322-are-you-fit-for-business$1 [R=301,L]
+RewriteRule ^2009/02/05/is-work-getting-in-the-way-of-life(.*)$ /news-and-events/latest-news/view/11390-is-work-getting-in-the-way-of-life$1 [R=301,L]
+RewriteRule ^2009/02/06/the-return-of-london-2012s-open-weekend(.*)$ /news-and-events/latest-news/view/11400-the-return-of-london-2012s-open-weekend$1 [R=301,L]
+RewriteRule ^2009/02/09/national-apprenticeships-week-2009(.*)$ /news-and-events/latest-news/view/11411-national-apprenticeships-week-2009$1 [R=301,L]
+RewriteRule ^2009/02/16/jump-rope-uk-training-days(.*)$ /news-and-events/latest-news/view/11513-jump-rope-uk-training-days$1 [R=301,L]
+RewriteRule ^2009/02/19/lewes-cricket-academy(.*)$ /news-and-events/latest-news/view/11555-lewes-cricket-academy$1 [R=301,L]
+RewriteRule ^2009/02/19/shaping-places-through-sport(.*)$ /news-and-events/latest-news/view/11592-shaping-places-through-sport$1 [R=301,L]
+RewriteRule ^2009/02/19/young-enterprise-south-east-sports-masterclass(.*)$ /news-and-events/latest-news/view/11553-young-enterprise-south-east-sports-masterclass$1 [R=301,L]
+RewriteRule ^2009/02/23/west-sussex-ahead-of-the-game-newsletter(.*)$ /news-and-events/latest-news/view/11661-west-sussex-ahead-of-the-game-newsletter$1 [R=301,L]
+RewriteRule ^2009/02/26/minimum-operating-standards-consultation(.*)$ /news-and-events/latest-news/view/11813-minimum-operating-standards-consultation$1 [R=301,L]
+RewriteRule ^2009/02/26/regional-restructure-of-the-asa(.*)$ /news-and-events/latest-news/view/11808-regional-restructure-of-the-asa$1 [R=301,L]
+RewriteRule ^2009/02/27/sussex-csp-transition-process-2009(.*)$ /news-and-events/latest-news/view/11843-sussex-csp-transition-process-2009$1 [R=301,L]
+RewriteRule ^2009/03/02/podium-launched(.*)$ /news-and-events/latest-news/view/11851-podium-launched$1 [R=301,L]
+RewriteRule ^2009/03/04/brighton-hove-aqua-festival-2009(.*)$ /news-and-events/latest-news/view/11892-brighton-hove-aqua-festival-2009$1 [R=301,L]
+RewriteRule ^2009/03/04/congratulations-kin-ryu-judo-club-volunteers(.*)$ /news-and-events/latest-news/view/11888-congratulations-kin-ryu-judo-club-volunteers$1 [R=301,L]
+RewriteRule ^2009/03/04/the-latest-from-the-pitch(.*)$ /news-and-events/latest-news/view/11908-the-latest-from-the-pitch$1 [R=301,L]
+RewriteRule ^2009/03/04/training-grants-available-crawley(.*)$ /news-and-events/latest-news/view/11902-training-grants-available-crawley$1 [R=301,L]
+RewriteRule ^2009/03/10/beyond-boundaries-live-2009(.*)$ /news-and-events/latest-news/view/11922-beyond-boundaries-live-2009$1 [R=301,L]
+RewriteRule ^2009/03/10/does-your-charity-want-cash-help(.*)$ /news-and-events/latest-news/view/11925-does-your-charity-want-cash-help$1 [R=301,L]
+RewriteRule ^2009/03/17/swimathon-2009-at-king-alfred-leisure-centre(.*)$ /news-and-events/latest-news/view/12119-swimathon-2009-at-king-alfred-leisure-centre$1 [R=301,L]
+RewriteRule ^2009/03/17/the-icc-twenty20-world-cup(.*)$ /news-and-events/latest-news/view/12112-the-icc-twenty20-world-cup$1 [R=301,L]
+RewriteRule ^2009/03/20/badminton-level-two-coaching-course(.*)$ /news-and-events/latest-news/view/12177-badminton-level-two-coaching-course$1 [R=301,L]
+RewriteRule ^2009/03/20/sport-science-support(.*)$ /news-and-events/latest-news/view/12169-sport-science-support$1 [R=301,L]
+RewriteRule ^2009/03/27/south-east-personal-best-networking-event(.*)$ /news-and-events/latest-news/view/12240-south-east-personal-best-networking-event$1 [R=301,L]
+RewriteRule ^2009/03/31/st-james%e2%80%99-house-win-boccia-tournament(.*)$ /news-and-events/latest-news/view/12278-st-james%e2%80%99-house-win-boccia-tournament$1 [R=301,L]
+RewriteRule ^2009/04/08/sussex-swimming-legend-launches-initiative(.*)$ /news-and-events/latest-news/view/12328-sussex-swimming-legend-launches-initiative$1 [R=301,L]
+RewriteRule ^2009/04/15/ordinary-people-heroic-actions(.*)$ /news-and-events/latest-news/view/12336-ordinary-people-heroic-actions$1 [R=301,L]
+RewriteRule ^2009/04/21/details-of-the-london-2012-open-weekend-released(.*)$ /news-and-events/latest-news/view/12387-details-of-the-london-2012-open-weekend-released$1 [R=301,L]
+RewriteRule ^2009/04/21/the-equality-standard-e-newsletter(.*)$ /news-and-events/latest-news/view/12375-the-equality-standard-e-newsletter$1 [R=301,L]
+RewriteRule ^2009/04/28/local-schools-get-a-taste-of-windsurfing(.*)$ /news-and-events/latest-news/view/12396-local-schools-get-a-taste-of-windsurfing$1 [R=301,L]
+RewriteRule ^2009/05/07/badminton-masterclass-with-nathan-roberston-and-gail-emms(.*)$ /news-and-events/latest-news/view/12447-badminton-masterclass-with-nathan-roberston-and-gail-emms$1 [R=301,L]
+RewriteRule ^2009/05/07/veterans-challenge-event-on-26-june-2009(.*)$ /news-and-events/latest-news/view/12441-veterans-challenge-event-on-26-june-2009$1 [R=301,L]
+RewriteRule ^2009/05/11/hastings-and-rother-school-sport-partnership-club-conference(.*)$ /news-and-events/latest-news/view/12490-hastings-and-rother-school-sport-partnership-club-conference$1 [R=301,L]
+RewriteRule ^2009/05/21/business-beach-volleyball-2009(.*)$ /news-and-events/latest-news/view/12594-business-beach-volleyball-2009$1 [R=301,L]
+RewriteRule ^2009/06/01/volunteers-needed-at-paddle-round-the-pier(.*)$ /news-and-events/latest-news/view/12624-volunteers-needed-at-paddle-round-the-pier$1 [R=301,L]
+RewriteRule ^2009/06/03/sussex-parallel-youth-games-10-june-2009(.*)$ /news-and-events/latest-news/view/12642-sussex-parallel-youth-games-10-june-2009$1 [R=301,L]
+RewriteRule ^2009/06/18/free-training-talking-to-parents(.*)$ /news-and-events/latest-news/view/12756-free-training-talking-to-parents$1 [R=301,L]
+RewriteRule ^2009/06/18/takepart-on-24-26-july-2009(.*)$ /news-and-events/latest-news/view/12751-takepart-on-24-26-july-2009$1 [R=301,L]
+RewriteRule ^2009/06/19/basketball-sussex-agm-23-june-2009(.*)$ /news-and-events/latest-news/view/12774-basketball-sussex-agm-23-june-2009$1 [R=301,L]
+RewriteRule ^2009/06/19/horsham-basketball-club-phoenix-from-the-flames(.*)$ /news-and-events/latest-news/view/12784-horsham-basketball-club-phoenix-from-the-flames$1 [R=301,L]
+RewriteRule ^2009/06/19/new-british-cycling-website-gets-88-million-hits(.*)$ /news-and-events/latest-news/view/12766-new-british-cycling-website-gets-88-million-hits$1 [R=301,L]
+RewriteRule ^2009/06/23/sports-relief-fund-act-now(.*)$ /news-and-events/latest-news/view/12806-sports-relief-fund-act-now$1 [R=301,L]
+RewriteRule ^2009/06/24/badminton-masterclass-with-nathan-robertson-and-gail-emms(.*)$ /news-and-events/latest-news/view/12819-badminton-masterclass-with-nathan-robertson-and-gail-emms$1 [R=301,L]
+RewriteRule ^2009/06/25/takepart-brighton-hove-festival-of-sport-27-june-12-july-2009(.*)$ /news-and-events/latest-news/view/12834-takepart-brighton-hove-festival-of-sport-27-june-12-july-2009$1 [R=301,L]
+RewriteRule ^2009/06/29/eastbourne-netball-league-action-of-promises-16-july-2009(.*)$ /news-and-events/latest-news/view/12855-eastbourne-netball-league-action-of-promises-16-july-2009$1 [R=301,L]
+RewriteRule ^2009/06/29/feelfit-paddle-round-the-pier-4-and-5-july-2009(.*)$ /news-and-events/latest-news/view/12850-feelfit-paddle-round-the-pier-4-and-5-july-2009$1 [R=301,L]
+RewriteRule ^2009/07/06/open-up-at-the-west-sussex-2012-open-weekend(.*)$ /news-and-events/latest-news/view/12893-open-up-at-the-west-sussex-2012-open-weekend$1 [R=301,L]
+RewriteRule ^2009/07/06/volunteers-needed-at-the-ashenground-table-tennis-club(.*)$ /news-and-events/latest-news/view/12890-volunteers-needed-at-the-ashenground-table-tennis-club$1 [R=301,L]
+RewriteRule ^2009/07/08/scspt-annual-report-2008-09-now-available(.*)$ /news-and-events/latest-news/view/12909-scspt-annual-report-2008-09-now-available$1 [R=301,L]
+RewriteRule ^2009/07/16/complete-our-enews-quality-survey-2009-and-win-30(.*)$ /news-and-events/latest-news/view/13044-complete-our-enews-quality-survey-2009-and-win-30$1 [R=301,L]
+RewriteRule ^2009/07/20/brighton-open-weekend-2012-24-26-july(.*)$ /news-and-events/latest-news/view/13094-brighton-open-weekend-2012-24-26-july$1 [R=301,L]
+RewriteRule ^2009/07/24/active-healthy-workplace-softball-tournament(.*)$ /news-and-events/latest-news/view/13224-active-healthy-workplace-softball-tournament$1 [R=301,L]
+RewriteRule ^2009/07/24/freedom-leisure-and-greenwich-leisure-work-in-partnership-at-mid-sussex-sites(.*)$ /news-and-events/latest-news/view/13205-freedom-leisure-and-greenwich-leisure-work-in-partnership-at-mid-sussex-sites$1 [R=301,L]
+RewriteRule ^2009/07/24/sir-bobby-charlton-supports-football-peace-project(.*)$ /news-and-events/latest-news/view/13209-sir-bobby-charlton-supports-football-peace-project$1 [R=301,L]
+RewriteRule ^2009/07/29/money-for-coaching-courses(.*)$ /news-and-events/latest-news/view/13388-money-for-coaching-courses$1 [R=301,L]
+RewriteRule ^2009/08/06/free-swimming-makes-a-splash(.*)$ /news-and-events/latest-news/view/13531-free-swimming-makes-a-splash$1 [R=301,L]
+RewriteRule ^2009/08/06/lewes-rugby-club-taster-day-sunday-august-30-2009(.*)$ /news-and-events/latest-news/view/13562-lewes-rugby-club-taster-day-sunday-august-30-2009$1 [R=301,L]
+RewriteRule ^2009/08/06/top-beach-volleyball-event-15-16-august-2009(.*)$ /news-and-events/latest-news/view/13574-top-beach-volleyball-event-15-16-august-2009$1 [R=301,L]
+RewriteRule ^2009/08/10/free-swimming-lessons-for-the-over-60s-in-wealden(.*)$ /news-and-events/latest-news/view/13642-free-swimming-lessons-for-the-over-60s-in-wealden$1 [R=301,L]
+RewriteRule ^2009/08/10/msmas-free-junior-judo-in-2009(.*)$ /news-and-events/latest-news/view/13657-msmas-free-junior-judo-in-2009$1 [R=301,L]
+RewriteRule ^2009/08/10/sussex-sports-awards-2009-nominations-open-13-august-2009(.*)$ /news-and-events/latest-news/view/13615-sussex-sports-awards-2009-nominations-open-13-august-2009$1 [R=301,L]
+RewriteRule ^2009/08/12/try-a-new-sport-at-white-air-extreme-sports-and-music-festival-18-20-september-2009(.*)$ /news-and-events/latest-news/view/13724-try-a-new-sport-at-white-air-extreme-sports-and-music-festival-18-20-september-2009$1 [R=301,L]
+RewriteRule ^2009/08/13/active-and-healthy-workplace-softball-tournament(.*)$ /news-and-events/latest-news/view/13779-active-and-healthy-workplace-softball-tournament$1 [R=301,L]
+RewriteRule ^2009/08/17/asa-aquatic-workforce-audit(.*)$ /news-and-events/latest-news/view/13801-asa-aquatic-workforce-audit$1 [R=301,L]
+RewriteRule ^2009/08/20/latest-ukcc-basketball-coaching-courses-now-available(.*)$ /news-and-events/latest-news/view/13915-latest-ukcc-basketball-coaching-courses-now-available$1 [R=301,L]
+RewriteRule ^2009/08/24/rise-2009-8km-undercliff-run-for-women(.*)$ /news-and-events/latest-news/view/14026-rise-2009-8km-undercliff-run-for-women$1 [R=301,L]
+RewriteRule ^2009/08/24/sussex-csp-trust-shortlisted-for-prestigious-bahbas-awards-2009(.*)$ /news-and-events/latest-news/view/13970-sussex-csp-trust-shortlisted-for-prestigious-bahbas-awards-2009$1 [R=301,L]
+RewriteRule ^2009/08/27/win-a-pair-of-tickets-to-the-white-air-extreme-sports-and-music-festival(.*)$ /news-and-events/latest-news/view/14233-win-a-pair-of-tickets-to-the-white-air-extreme-sports-and-music-festival$1 [R=301,L]
+RewriteRule ^2009/09/03/brighton-hove-city-sports-physical-activity-awards-2009(.*)$ /news-and-events/latest-news/view/14332-brighton-hove-city-sports-physical-activity-awards-2009$1 [R=301,L]
+RewriteRule ^2009/09/07/adventure-leadership-training-for-young-people(.*)$ /news-and-events/latest-news/view/14350-adventure-leadership-training-for-young-people$1 [R=301,L]
+RewriteRule ^2009/09/07/uk-coaching-awards-nominations-now-open(.*)$ /news-and-events/latest-news/view/14345-uk-coaching-awards-nominations-now-open$1 [R=301,L]
+RewriteRule ^2009/09/08/team-uk-wins-big-at-worldskills(.*)$ /news-and-events/latest-news/view/14381-team-uk-wins-big-at-worldskills$1 [R=301,L]
+RewriteRule ^2009/09/16/sussex-sports-awards-2009-dont-delay-nominate-today(.*)$ /news-and-events/latest-news/view/14442-sussex-sports-awards-2009-dont-delay-nominate-today$1 [R=301,L]
+RewriteRule ^2009/09/17/aiming-high-for-disabled-children-deadline-21-september-2009(.*)$ /news-and-events/latest-news/view/14481-aiming-high-for-disabled-children-deadline-21-september-2009$1 [R=301,L]
+RewriteRule ^2009/09/17/community-cash-back-scheme(.*)$ /news-and-events/latest-news/view/14477-community-cash-back-scheme$1 [R=301,L]
+RewriteRule ^2009/09/17/top-tips-for-inclusive-marketing(.*)$ /news-and-events/latest-news/view/14470-top-tips-for-inclusive-marketing$1 [R=301,L]
+RewriteRule ^2009/09/18/future-of-standards-and-education-in-sports-coaching(.*)$ /news-and-events/latest-news/view/14502-future-of-standards-and-education-in-sports-coaching$1 [R=301,L]
+RewriteRule ^2009/09/18/sussex-community-table-tennis-circuit-shoreham(.*)$ /news-and-events/latest-news/view/14510-sussex-community-table-tennis-circuit-shoreham$1 [R=301,L]
+RewriteRule ^2009/09/18/volunteers-and-coaches-required-for-cricket-projects-in-africa(.*)$ /news-and-events/latest-news/view/14515-volunteers-and-coaches-required-for-cricket-projects-in-africa$1 [R=301,L]
+RewriteRule ^2009/09/22/whats-on-yellowave-beach-sports-venue(.*)$ /news-and-events/latest-news/view/14544-whats-on-yellowave-beach-sports-venue$1 [R=301,L]
+RewriteRule ^2009/09/29/bbc-unsung-hero-2009(.*)$ /news-and-events/latest-news/view/14745-bbc-unsung-hero-2009$1 [R=301,L]
+RewriteRule ^2009/09/29/fundraising-courses-for-schools-sports-clubs-charities-and-self-help-organisations(.*)$ /news-and-events/latest-news/view/14736-fundraising-courses-for-schools-sports-clubs-charities-and-self-help-organisations$1 [R=301,L]
+RewriteRule ^2009/09/29/olympians-and-paralympians-could-be-coming-to-a-school-in-sussex(.*)$ /news-and-events/latest-news/view/14803-olympians-and-paralympians-could-be-coming-to-a-school-in-sussex$1 [R=301,L]
+RewriteRule ^2009/10/05/fingers-crossed-for-the-sussex-csp-trust-at-the-bahbas(.*)$ /news-and-events/latest-news/view/14919-fingers-crossed-for-the-sussex-csp-trust-at-the-bahbas$1 [R=301,L]
+RewriteRule ^2009/10/12/sport-for-all-inclusive-sports-festival-in-east-sussex(.*)$ /news-and-events/latest-news/view/15044-sport-for-all-inclusive-sports-festival-in-east-sussex$1 [R=301,L]
+RewriteRule ^2009/10/13/karen-pickering-mbe-to-visit-k2-crawley-on-friday-16-october(.*)$ /news-and-events/latest-news/view/15059-karen-pickering-mbe-to-visit-k2-crawley-on-friday-16-october$1 [R=301,L]
+RewriteRule ^2009/10/13/strictly-come-tea-dancing(.*)$ /news-and-events/latest-news/view/15066-strictly-come-tea-dancing$1 [R=301,L]
+RewriteRule ^2009/10/13/student-placement-opportunity-with-the-exercise-movement-and-dance-partnership(.*)$ /news-and-events/latest-news/view/15053-student-placement-opportunity-with-the-exercise-movement-and-dance-partnership$1 [R=301,L]
+RewriteRule ^2009/10/14/nominations-now-closed-for-the-2009-sussex-sport-awards(.*)$ /news-and-events/latest-news/view/15080-nominations-now-closed-for-the-2009-sussex-sport-awards$1 [R=301,L]
+RewriteRule ^2009/10/14/the-inclusive-fitness-programme-2009-2010(.*)$ /news-and-events/latest-news/view/15115-the-inclusive-fitness-programme-2009-2010$1 [R=301,L]
+RewriteRule ^2009/10/14/want-to-lose-weight-before-christmas-let-lgm-nutrition-help-you-for-free(.*)$ /news-and-events/latest-news/view/15124-want-to-lose-weight-before-christmas-let-lgm-nutrition-help-you-for-free$1 [R=301,L]
+RewriteRule ^2009/10/20/wealden-community-grants-deadline-30-november(.*)$ /news-and-events/latest-news/view/15144-wealden-community-grants-deadline-30-november$1 [R=301,L]
+RewriteRule ^2009/10/21/campaign-aims-to-get-100000-more-active-through-dance(.*)$ /news-and-events/latest-news/view/15152-campaign-aims-to-get-100000-more-active-through-dance$1 [R=301,L]
+RewriteRule ^2009/10/21/free-beach-volleyball-for-schools-in-brighton-and-hove(.*)$ /news-and-events/latest-news/view/15161-free-beach-volleyball-for-schools-in-brighton-and-hove$1 [R=301,L]
+RewriteRule ^2009/10/21/pe-and-sport-survey-2009(.*)$ /news-and-events/latest-news/view/15157-pe-and-sport-survey-2009$1 [R=301,L]
+RewriteRule ^2009/10/21/shortlisted-nominees-for-the-2009-sussex-sports-awards-announced-tomorrow(.*)$ /news-and-events/latest-news/view/15181-shortlisted-nominees-for-the-2009-sussex-sports-awards-announced-tomorrow$1 [R=301,L]
+RewriteRule ^2009/10/21/sports-coach-uk-an-introduction-to-the-fundamentals-of-movement-workshop(.*)$ /news-and-events/latest-news/view/15166-sports-coach-uk-an-introduction-to-the-fundamentals-of-movement-workshop$1 [R=301,L]
+RewriteRule ^2009/10/22/2009-shortlisted-nominees-announced-for-the-sussex-sports-awards(.*)$ /news-and-events/latest-news/view/15222-2009-shortlisted-nominees-announced-for-the-sussex-sports-awards$1 [R=301,L]
+RewriteRule ^2009/10/22/luol-deng-foudation-mini-basketball-camp-7-november-2009(.*)$ /news-and-events/latest-news/view/15266-luol-deng-foudation-mini-basketball-camp-7-november-2009$1 [R=301,L]
+RewriteRule ^2009/10/27/6-weeks-free-gym-membership-in-worthing(.*)$ /news-and-events/latest-news/view/15277-6-weeks-free-gym-membership-in-worthing$1 [R=301,L]
+RewriteRule ^2009/10/27/sussex-beacon-youth-race-find-out-more(.*)$ /news-and-events/latest-news/view/15280-sussex-beacon-youth-race-find-out-more$1 [R=301,L]
+RewriteRule ^2009/10/29/moving-mums-moulsecoombe-leisure-centre-starting-in-november-2009(.*)$ /news-and-events/latest-news/view/15291-moving-mums-moulsecoombe-leisure-centre-starting-in-november-2009$1 [R=301,L]
+RewriteRule ^2009/11/02/vote-for-the-rix-kay-solicitors-club-of-the-year-at-the-sussex-sports-awards-2009(.*)$ /news-and-events/latest-news/view/15307-vote-for-the-rix-kay-solicitors-club-of-the-year-at-the-sussex-sports-awards-2009$1 [R=301,L]
+RewriteRule ^2009/11/03/calling-all-females-aged-16-to-24-are-you-physically-active(.*)$ /news-and-events/latest-news/view/15342-calling-all-females-aged-16-to-24-are-you-physically-active$1 [R=301,L]
+RewriteRule ^2009/11/05/sussex-county-sports-partnerships-shortlisted-for-healthiest-workplace-in-sussex-business-awards(.*)$ /news-and-events/latest-news/view/15358-sussex-county-sports-partnerships-shortlisted-for-healthiest-workplace-in-sussex-business-awards$1 [R=301,L]
+RewriteRule ^2009/11/09/just-5-days-to-go-to-the-sussex-sports-awards-2009(.*)$ /news-and-events/latest-news/view/15500-just-5-days-to-go-to-the-sussex-sports-awards-2009$1 [R=301,L]
+RewriteRule ^2009/11/18/launch-of-the-active-women-themed-round(.*)$ /news-and-events/latest-news/view/15603-launch-of-the-active-women-themed-round$1 [R=301,L]
+RewriteRule ^2009/11/18/new-grants-aim-to-get-more-disabled-people-volunteering(.*)$ /news-and-events/latest-news/view/15599-new-grants-aim-to-get-more-disabled-people-volunteering$1 [R=301,L]
+RewriteRule ^2009/12/08/beginners-netball-course-12-december-2009(.*)$ /news-and-events/latest-news/view/15945-beginners-netball-course-12-december-2009$1 [R=301,L]
+RewriteRule ^2009/12/08/less-than-1000-days-to-go-to-the-paralympic-games-2012(.*)$ /news-and-events/latest-news/view/15917-less-than-1000-days-to-go-to-the-paralympic-games-2012$1 [R=301,L]
+RewriteRule ^2009/12/10/paralympics-say-yes-to-athletes-with-intellectual-disability-in-london-2012(.*)$ /news-and-events/latest-news/view/15978-paralympics-say-yes-to-athletes-with-intellectual-disability-in-london-2012$1 [R=301,L]
+RewriteRule ^2009/12/10/streetgames-news-bulletin-november-2009(.*)$ /news-and-events/latest-news/view/15971-streetgames-news-bulletin-november-2009$1 [R=301,L]
+RewriteRule ^2009/12/16/takepart-brighton-and-hove-announce-new-friends-membership-scheme(.*)$ /news-and-events/latest-news/view/16143-takepart-brighton-and-hove-announce-new-friends-membership-scheme$1 [R=301,L]
+RewriteRule ^2009/12/21/sussex-csp-have-achieved-the-advanced-standard-for-safeguarding-children-and-young-people-in-sport(.*)$ /news-and-events/latest-news/view/16235-sussex-csp-have-achieved-the-advanced-standard-for-safeguarding-children-and-young-people-in-sport$1 [R=301,L]
+RewriteRule ^2010/01/06/city-guilds-qualification-launch-18-january-2010(.*)$ /news-and-events/latest-news/view/16323-city-guilds-qualification-launch-18-january-2010$1 [R=301,L]
+RewriteRule ^2010/01/06/claim-your-place-in-the-brighton-marathon-with-heart-fms-charity-have-a-heart(.*)$ /news-and-events/latest-news/view/16320-claim-your-place-in-the-brighton-marathon-with-heart-fms-charity-have-a-heart$1 [R=301,L]
+RewriteRule ^2010/01/07/sussex-csp-trust-office-closed-7-january-2010-due-to-adverse-weather-conditions(.*)$ /news-and-events/latest-news/view/16328-sussex-csp-trust-office-closed-7-january-2010-due-to-adverse-weather-conditions$1 [R=301,L]
+RewriteRule ^2010/01/12/key-achievements-in-netball-in-sussex(.*)$ /news-and-events/latest-news/view/16427-key-achievements-in-netball-in-sussex$1 [R=301,L]
+RewriteRule ^2010/01/13/sussex-beacon-half-marathon-and-youth-race(.*)$ /news-and-events/latest-news/view/16442-sussex-beacon-half-marathon-and-youth-race$1 [R=301,L]
+RewriteRule ^2010/01/14/dance-stars-launch-campaign-to-get-the-nation-active(.*)$ /news-and-events/latest-news/view/16477-dance-stars-launch-campaign-to-get-the-nation-active$1 [R=301,L]
+RewriteRule ^2010/01/15/east-sussex-sports-development-awards-2010(.*)$ /news-and-events/latest-news/view/16495-east-sussex-sports-development-awards-2010$1 [R=301,L]
+RewriteRule ^2010/01/18/brighton-hoves-aqua-festival-8-19-march-2010(.*)$ /news-and-events/latest-news/view/16514-brighton-hoves-aqua-festival-8-19-march-2010$1 [R=301,L]
+RewriteRule ^2010/01/18/hard-work-pays-off-for-horsham-based-show-jumper-jessie-drea(.*)$ /news-and-events/latest-news/view/16520-hard-work-pays-off-for-horsham-based-show-jumper-jessie-drea$1 [R=301,L]
+RewriteRule ^2010/01/18/have-your-say-why-are-fewer-women-cycling(.*)$ /news-and-events/latest-news/view/16524-have-your-say-why-are-fewer-women-cycling$1 [R=301,L]
+RewriteRule ^2010/01/21/meridian-multi-sport-club-peacehaven-leisure-centre(.*)$ /news-and-events/latest-news/view/16551-meridian-multi-sport-club-peacehaven-leisure-centre$1 [R=301,L]
+RewriteRule ^2010/01/21/typhoo-sports-for-all-free-inclusion-courses-spaces-still-available(.*)$ /news-and-events/latest-news/view/16577-typhoo-sports-for-all-free-inclusion-courses-spaces-still-available$1 [R=301,L]
+RewriteRule ^2010/01/22/year-3-sport-unlimited-applications-are-now-closed(.*)$ /news-and-events/latest-news/view/16583-year-3-sport-unlimited-applications-are-now-closed$1 [R=301,L]
+RewriteRule ^2010/01/26/empowering-community-sport-conference-26-march-2010(.*)$ /news-and-events/latest-news/view/16612-empowering-community-sport-conference-26-march-2010$1 [R=301,L]
+RewriteRule ^2010/01/27/bbc-dropzone-campaign(.*)$ /news-and-events/latest-news/view/16618-bbc-dropzone-campaign$1 [R=301,L]
+RewriteRule ^2010/02/05/sussex-csp-secures-further-recruit-into-coaching-funding(.*)$ /news-and-events/latest-news/view/16666-sussex-csp-secures-further-recruit-into-coaching-funding$1 [R=301,L]
+RewriteRule ^2010/02/08/fundraising-football-quiz-saffrons-sports-club(.*)$ /news-and-events/latest-news/view/16676-fundraising-football-quiz-saffrons-sports-club$1 [R=301,L]
+RewriteRule ^2010/02/08/worthing-college-wins-the-first-inspire-leisure-active-healthy-workplace-indoor-volleyball-tournament(.*)$ /news-and-events/latest-news/view/16671-worthing-college-wins-the-first-inspire-leisure-active-healthy-workplace-indoor-volleyball-tournament$1 [R=301,L]
+RewriteRule ^2010/02/10/first-football-game-a-win-for-burgess-hill-school-for-girls(.*)$ /news-and-events/latest-news/view/16694-first-football-game-a-win-for-burgess-hill-school-for-girls$1 [R=301,L]
+RewriteRule ^2010/02/10/south-east-regional-disability-sports-events-dse-athletics-championships-2010(.*)$ /news-and-events/latest-news/view/16710-south-east-regional-disability-sports-events-dse-athletics-championships-2010$1 [R=301,L]
+RewriteRule ^2010/02/17/bbc-thrillseeker-promotion-in-south-east(.*)$ /news-and-events/latest-news/view/16771-bbc-thrillseeker-promotion-in-south-east$1 [R=301,L]
+RewriteRule ^2010/02/19/hastings-half-marathon-new-to-this-year(.*)$ /news-and-events/latest-news/view/16794-hastings-half-marathon-new-to-this-year$1 [R=301,L]
+RewriteRule ^2010/02/22/let-freedom-leisure-help-you-drop-a-dress-size(.*)$ /news-and-events/latest-news/view/16814-let-freedom-leisure-help-you-drop-a-dress-size$1 [R=301,L]
+RewriteRule ^2010/02/23/eastbourne-sports-and-activities-show-7-march-2010(.*)$ /news-and-events/latest-news/view/16821-eastbourne-sports-and-activities-show-7-march-2010$1 [R=301,L]
+RewriteRule ^2010/02/24/free-dance-and-movement-session-for-disabled-young-people-2-march-2010(.*)$ /news-and-events/latest-news/view/16917-free-dance-and-movement-session-for-disabled-young-people-2-march-2010$1 [R=301,L]
+RewriteRule ^2010/02/24/west-sussex-to-host-barbados-athletes-for-2012-olympics(.*)$ /news-and-events/latest-news/view/16910-west-sussex-to-host-barbados-athletes-for-2012-olympics$1 [R=301,L]
+RewriteRule ^2010/02/26/sussex-golf-development-academy-%e2%80%98try-out%e2%80%99-days-%e2%80%93-a-big-hit(.*)$ /news-and-events/latest-news/view/17046-sussex-golf-development-academy-%e2%80%98try-out%e2%80%99-days-%e2%80%93-a-big-hit$1 [R=301,L]
+RewriteRule ^2010/03/01/streetgames-national-conference-2010-the-streetgames-legacy-continues(.*)$ /news-and-events/latest-news/view/17164-streetgames-national-conference-2010-the-streetgames-legacy-continues$1 [R=301,L]
+RewriteRule ^2010/03/15/learn2play-football-women-and-girls-16(.*)$ /news-and-events/latest-news/view/17349-learn2play-football-women-and-girls-16$1 [R=301,L]
+RewriteRule ^2010/03/15/major-fundraising-boost-for-grassroots-sport(.*)$ /news-and-events/latest-news/view/17333-major-fundraising-boost-for-grassroots-sport$1 [R=301,L]
+RewriteRule ^2010/03/15/mid-sussex-martial-arts-school-wants-your-support(.*)$ /news-and-events/latest-news/view/17329-mid-sussex-martial-arts-school-wants-your-support$1 [R=301,L]
+RewriteRule ^2010/03/15/the-26th-hastings-half-marathon-sunday-21-march-2010(.*)$ /news-and-events/latest-news/view/17322-the-26th-hastings-half-marathon-sunday-21-march-2010$1 [R=301,L]
+RewriteRule ^2010/03/16/age-proves-no-barrier-to-table-tennis-enjoyment-in-horsham(.*)$ /news-and-events/latest-news/view/17457-age-proves-no-barrier-to-table-tennis-enjoyment-in-horsham$1 [R=301,L]
+RewriteRule ^2010/03/18/3000-new-after-school-olympic-sport-clubs(.*)$ /news-and-events/latest-news/view/17601-3000-new-after-school-olympic-sport-clubs$1 [R=301,L]
+RewriteRule ^2010/03/19/funding-fair-3va-25-may-2010(.*)$ /news-and-events/latest-news/view/17820-funding-fair-3va-25-may-2010$1 [R=301,L]
+RewriteRule ^2010/03/24/sport-england-announces-35m-of-investment-in-sport-for-disabled-people(.*)$ /news-and-events/latest-news/view/17892-sport-england-announces-35m-of-investment-in-sport-for-disabled-people$1 [R=301,L]
+RewriteRule ^2010/03/30/brightons-ben-quilter-wins-judo-world-championships(.*)$ /news-and-events/latest-news/view/17917-brightons-ben-quilter-wins-judo-world-championships$1 [R=301,L]
+RewriteRule ^2010/04/08/zest4life-summer-groups-2010(.*)$ /news-and-events/latest-news/view/17957-zest4life-summer-groups-2010$1 [R=301,L]
+RewriteRule ^2010/04/09/book-now-for-netball-level-2-coaching-course-in-east-grinstead(.*)$ /news-and-events/latest-news/view/17963-book-now-for-netball-level-2-coaching-course-in-east-grinstead$1 [R=301,L]
+RewriteRule ^2010/04/12/sport-unlimited-applications-re-open-in-sussex(.*)$ /news-and-events/latest-news/view/17977-sport-unlimited-applications-re-open-in-sussex$1 [R=301,L]
+RewriteRule ^2010/04/12/we-want-to-know-what-you-think-about-physical-activity(.*)$ /news-and-events/latest-news/view/17992-we-want-to-know-what-you-think-about-physical-activity$1 [R=301,L]
+RewriteRule ^2010/04/13/the-mid-sussex-martial-arts-school-succeed-at-2010-british-judo-association-sussex-county-trials(.*)$ /news-and-events/latest-news/view/18012-the-mid-sussex-martial-arts-school-succeed-at-2010-british-judo-association-sussex-county-trials$1 [R=301,L]
+RewriteRule ^2010/04/13/the-national-elite-open-badminton-tournament-on-8-9-may-2010(.*)$ /news-and-events/latest-news/view/18020-the-national-elite-open-badminton-tournament-on-8-9-may-2010$1 [R=301,L]
+RewriteRule ^2010/04/16/aiming-high-for-disabled-children-extending-short-breaks-for-disabled-children-and-young-people(.*)$ /news-and-events/latest-news/view/18040-aiming-high-for-disabled-children-extending-short-breaks-for-disabled-children-and-young-people$1 [R=301,L]
+RewriteRule ^2010/04/16/freedom-leisure-offers-sporty-summer-fun-for-the-children-of-mid-sussex(.*)$ /news-and-events/latest-news/view/18035-freedom-leisure-offers-sporty-summer-fun-for-the-children-of-mid-sussex$1 [R=301,L]
+RewriteRule ^2010/04/16/inclusive-fitness-week-south-east-2010-3-9-may(.*)$ /news-and-events/latest-news/view/18046-inclusive-fitness-week-south-east-2010-3-9-may$1 [R=301,L]
+RewriteRule ^2010/04/19/walk-wealden-2012-active-challenge(.*)$ /news-and-events/latest-news/view/18056-walk-wealden-2012-active-challenge$1 [R=301,L]
+RewriteRule ^2010/04/23/crawley-ssp-summer-newsletter-2010(.*)$ /news-and-events/latest-news/view/18095-crawley-ssp-summer-newsletter-2010$1 [R=301,L]
+RewriteRule ^2010/04/23/ex-olympic-chief-juan-antonio-samaranch-sadly-dies-from-heart-problems(.*)$ /news-and-events/latest-news/view/18073-ex-olympic-chief-juan-antonio-samaranch-sadly-dies-from-heart-problems$1 [R=301,L]
+RewriteRule ^2010/04/30/sussex-3v3-summer-basketball-league-13(.*)$ /news-and-events/latest-news/view/18139-sussex-3v3-summer-basketball-league-13$1 [R=301,L]
+RewriteRule ^2010/05/04/aegon-international-returns-to-the-courts-of-devonshire-park-eastbourne-from-12-19-june-2010(.*)$ /news-and-events/latest-news/view/18150-aegon-international-returns-to-the-courts-of-devonshire-park-eastbourne-from-12-19-june-2010$1 [R=301,L]
+RewriteRule ^2010/05/05/amaze-to-host-zone-for-kids-and-adults-with-special-needs-at-takepart-launch-day(.*)$ /news-and-events/latest-news/view/18181-amaze-to-host-zone-for-kids-and-adults-with-special-needs-at-takepart-launch-day$1 [R=301,L]
+RewriteRule ^2010/05/12/high-performance-athletes-in-profile-scanning-for-gold(.*)$ /news-and-events/latest-news/view/18219-high-performance-athletes-in-profile-scanning-for-gold$1 [R=301,L]
+RewriteRule ^2010/05/13/400-international-competitors-to-compete-at-this-weekend%e2%80%99s-british-open-judo-championships(.*)$ /news-and-events/latest-news/view/18331-400-international-competitors-to-compete-at-this-weekend%e2%80%99s-british-open-judo-championships$1 [R=301,L]
+RewriteRule ^2010/05/18/active-sussex-partner-conference-the-business-of-legacy-30-june(.*)$ /news-and-events/latest-news/view/18587-active-sussex-partner-conference-the-business-of-legacy-30-june$1 [R=301,L]
+RewriteRule ^2010/05/19/colour-in-motion-empd-royal-albert-hall-show-5-june-2010(.*)$ /news-and-events/latest-news/view/18604-colour-in-motion-empd-royal-albert-hall-show-5-june-2010$1 [R=301,L]
+RewriteRule ^2010/05/20/national-mens-health-week-14-20-june-2010(.*)$ /news-and-events/latest-news/view/18619-national-mens-health-week-14-20-june-2010$1 [R=301,L]
+RewriteRule ^2010/05/21/coaching-opportunity-for-late-night-basketball-sessions-in-uckfield(.*)$ /news-and-events/latest-news/view/18638-coaching-opportunity-for-late-night-basketball-sessions-in-uckfield$1 [R=301,L]
+RewriteRule ^2010/05/26/deadline-for-autumn-and-spring-sport-unlimited-applications-this-friday-28-may-2010(.*)$ /news-and-events/latest-news/view/18655-deadline-for-autumn-and-spring-sport-unlimited-applications-this-friday-28-may-2010$1 [R=301,L]
+RewriteRule ^2010/05/26/the-capital-to-coast-cycle-challenge-returns-to-sussex-on-sunday-27-june-2010(.*)$ /news-and-events/latest-news/view/18667-the-capital-to-coast-cycle-challenge-returns-to-sussex-on-sunday-27-june-2010$1 [R=301,L]
+RewriteRule ^2010/05/28/level-3-teacher-training-award-in-movement-and-dance(.*)$ /news-and-events/latest-news/view/18710-level-3-teacher-training-award-in-movement-and-dance$1 [R=301,L]
+RewriteRule ^2010/06/01/active-sussex-activated(.*)$ /news-and-events/latest-news/view/18722-active-sussex-activated$1 [R=301,L]
+RewriteRule ^2010/06/01/national-volunteers-week-1-7-june(.*)$ /news-and-events/latest-news/view/18742-national-volunteers-week-1-7-june$1 [R=301,L]
+RewriteRule ^2010/06/08/maximising-the-english-passion-for-volunteering(.*)$ /news-and-events/latest-news/view/19297-maximising-the-english-passion-for-volunteering$1 [R=301,L]
+RewriteRule ^2010/06/10/active-community-festivals-in-wealden(.*)$ /news-and-events/latest-news/view/19302-active-community-festivals-in-wealden$1 [R=301,L]
+RewriteRule ^2010/06/10/active-community-festivals-in-wealden/untitled-2(.*)$ /news-and-events/latest-news/view/19302-active-community-festivals-in-wealden$1 [R=301,L]
+RewriteRule ^2010/06/10/active-community-festivals-in-wealden/untitled-2/feed(.*)$ /news-and-events/latest-news/view/19302-active-community-festivals-in-wealden$1 [R=301,L]
+RewriteRule ^2010/06/10/active-community-festivals-in-wealden/untitled-2/trackback(.*)$ /news-and-events/latest-news/view/19302-active-community-festivals-in-wealden$1 [R=301,L]
+RewriteRule ^2010/06/11/19343(.*)$ /news-and-events/latest-news/view/19343-19343$1 [R=301,L]
+RewriteRule ^2010/06/11/400-participants-battled-it-out-at-the-2010-parallel-youth-games(.*)$ /news-and-events/latest-news/view/19314-400-participants-battled-it-out-at-the-2010-parallel-youth-games$1 [R=301,L]
+RewriteRule ^2010/06/16/vetting-and-barring-scheme-halted(.*)$ /news-and-events/latest-news/view/19393-vetting-and-barring-scheme-halted$1 [R=301,L]
+RewriteRule ^2010/07/02/partners-inspired-at-conference(.*)$ /news-and-events/latest-news/view/19543-partners-inspired-at-conference$1 [R=301,L]
+RewriteRule ^2010/07/09/free-activities-for-disabled-young-people-in-wealden-aged-7-18-yrs(.*)$ /news-and-events/latest-news/view/19640-free-activities-for-disabled-young-people-in-wealden-aged-7-18-yrs$1 [R=301,L]
+RewriteRule ^2010/07/09/lead-the-way-in-badminton(.*)$ /news-and-events/latest-news/view/19621-lead-the-way-in-badminton$1 [R=301,L]
+RewriteRule ^2010/07/16/brighton-hove-2012-open-weekend(.*)$ /news-and-events/latest-news/view/19676-brighton-hove-2012-open-weekend$1 [R=301,L]
+RewriteRule ^2010/07/16/countdown-to-london-2012-at-freedom-leisure-rye%e2%80%99s-open-weekend-on-24th-25th-july(.*)$ /news-and-events/latest-news/view/19683-countdown-to-london-2012-at-freedom-leisure-rye%e2%80%99s-open-weekend-on-24th-25th-july$1 [R=301,L]
+RewriteRule ^2010/07/16/countdown-to-london-2012-at-freedom-leisure-uckfields-open-weekend-on-24th-july(.*)$ /news-and-events/latest-news/view/19680-countdown-to-london-2012-at-freedom-leisure-uckfields-open-weekend-on-24th-july$1 [R=301,L]
+RewriteRule ^2010/07/16/freedom-leisures-holiday-academy-at-burgess-hill-haywards-heath-and-east-grinstead(.*)$ /news-and-events/latest-news/view/19672-freedom-leisures-holiday-academy-at-burgess-hill-haywards-heath-and-east-grinstead$1 [R=301,L]
+RewriteRule ^2010/07/20/700000-investment-planned-for-leisure-facilities-in-hastings(.*)$ /news-and-events/latest-news/view/19763-700000-investment-planned-for-leisure-facilities-in-hastings$1 [R=301,L]
+RewriteRule ^2010/07/20/you-think-youd-try-this(.*)$ /news-and-events/latest-news/view/19758-you-think-youd-try-this$1 [R=301,L]
+RewriteRule ^2010/07/21/from-street-dance-to-snakes-and-ladders-and-the-chelsea-soccer-school-to-cheerleading(.*)$ /news-and-events/latest-news/view/19768-from-street-dance-to-snakes-and-ladders-and-the-chelsea-soccer-school-to-cheerleading$1 [R=301,L]
+RewriteRule ^2010/07/21/littlehampton-wheels-2010(.*)$ /news-and-events/latest-news/view/19780-littlehampton-wheels-2010$1 [R=301,L]
+RewriteRule ^2010/07/22/as-free-swimming-for-the-over-60%e2%80%99s-comes-to-an-end-freedom-leisure-offers(.*)$ /news-and-events/latest-news/view/19788-as-free-swimming-for-the-over-60%e2%80%99s-comes-to-an-end-freedom-leisure-offers$1 [R=301,L]
+RewriteRule ^2010/07/22/join-in-at-the-weekend(.*)$ /news-and-events/latest-news/view/19791-join-in-at-the-weekend$1 [R=301,L]
+RewriteRule ^2010/07/26/applications-open-for-london-2012-specialist-volunteers(.*)$ /news-and-events/latest-news/view/19826-applications-open-for-london-2012-specialist-volunteers$1 [R=301,L]
+RewriteRule ^2010/07/29/rural-schools-compete-at-annual-nears-swimming-gala(.*)$ /news-and-events/latest-news/view/19873-rural-schools-compete-at-annual-nears-swimming-gala$1 [R=301,L]
+RewriteRule ^2010/08/02/sports-leaders-uk-volunteer-recognition-scheme(.*)$ /news-and-events/latest-news/view/19892-sports-leaders-uk-volunteer-recognition-scheme$1 [R=301,L]
+RewriteRule ^2010/08/03/we-are-experiencing-technical-problems(.*)$ /news-and-events/latest-news/view/19912-we-are-experiencing-technical-problems$1 [R=301,L]
+RewriteRule ^2010/08/06/sport-england-re-open-sustainable-facilities-fund(.*)$ /news-and-events/latest-news/view/20048-sport-england-re-open-sustainable-facilities-fund$1 [R=301,L]
+RewriteRule ^2010/08/12/sussex-sports-awards-%e2%80%93-nominations-now-open(.*)$ /news-and-events/latest-news/view/20165-sussex-sports-awards-%e2%80%93-nominations-now-open$1 [R=301,L]
+RewriteRule ^2010/08/20/swimmer-to-tackle-channel-with-broken-wrist(.*)$ /news-and-events/latest-news/view/20341-swimmer-to-tackle-channel-with-broken-wrist$1 [R=301,L]
+RewriteRule ^2010/09/20/last-chance-to-influence-water-sport-plan(.*)$ /news-and-events/latest-news/view/20585-last-chance-to-influence-water-sport-plan$1 [R=301,L]
+RewriteRule ^2010/10/12/sussex-sports-awards-%e2%80%93-shortlisting-begins(.*)$ /news-and-events/latest-news/view/20680-sussex-sports-awards-%e2%80%93-shortlisting-begins$1 [R=301,L]
+RewriteRule ^2010/10/20/sussex-sports-awards-2010-%e2%80%93-the-complete-shorlist(.*)$ /news-and-events/latest-news/view/20769-sussex-sports-awards-2010-%e2%80%93-the-complete-shorlist$1 [R=301,L]
+RewriteRule ^2010/11/13/sussex-sports-awards-%e2%80%93-a-sparkling-event(.*)$ /news-and-events/latest-news/view/20854-sussex-sports-awards-%e2%80%93-a-sparkling-event$1 [R=301,L]
+RewriteRule ^2010/11/18/world-champ-quilter-visits-brighton-uni(.*)$ /news-and-events/latest-news/view/20897-world-champ-quilter-visits-brighton-uni$1 [R=301,L]
+RewriteRule ^2010/11/19/rodger-celebrates-sussex-sports-awards-win-with-bbc-interview(.*)$ /news-and-events/latest-news/view/20942-rodger-celebrates-sussex-sports-awards-win-with-bbc-interview$1 [R=301,L]
+RewriteRule ^2010/11/19/young-sussex-sports-awards-winners-meet-their-olympic-heroines(.*)$ /news-and-events/latest-news/view/20950-young-sussex-sports-awards-winners-meet-their-olympic-heroines$1 [R=301,L]
+RewriteRule ^2010/11/24/three-new-job-vacancies(.*)$ /news-and-events/latest-news/view/21002-three-new-job-vacancies$1 [R=301,L]
+RewriteRule ^2010/11/24/win-100-in-badminton-england-prize-draw(.*)$ /news-and-events/latest-news/view/21009-win-100-in-badminton-england-prize-draw$1 [R=301,L]
+RewriteRule ^2010/11/25/inspire-leisure-latest-jobs(.*)$ /news-and-events/latest-news/view/21068-inspire-leisure-latest-jobs$1 [R=301,L]
+RewriteRule ^2010/11/26/listen-again-to-worthing-harriers-interviewed-on-juice-1072(.*)$ /news-and-events/latest-news/view/21072-listen-again-to-worthing-harriers-interviewed-on-juice-1072$1 [R=301,L]
+RewriteRule ^2010/12/03/volunteer-for-brighton-marathon-2011(.*)$ /news-and-events/latest-news/view/21029-volunteer-for-brighton-marathon-2011$1 [R=301,L]
+RewriteRule ^2010/12/07/impulse-leisure-job-vacancies-closing-today(.*)$ /news-and-events/latest-news/view/21295-impulse-leisure-job-vacancies-closing-today$1 [R=301,L]
+RewriteRule ^2010/12/10/active-sussex-network-meeting(.*)$ /news-and-events/latest-news/view/21304-active-sussex-network-meeting$1 [R=301,L]
+RewriteRule ^2010/12/13/14m-refit-for-dilapidated-worthing-football-park(.*)$ /news-and-events/latest-news/view/21399-14m-refit-for-dilapidated-worthing-football-park$1 [R=301,L]
+RewriteRule ^2010/12/24/team-up-for-new-year-workplace-competition(.*)$ /news-and-events/latest-news/view/21518-team-up-for-new-year-workplace-competition$1 [R=301,L]
+RewriteRule ^2011/01/01/big-lottery-grant-secures-future-of-community-adventure-scheme(.*)$ /news-and-events/latest-news/view/21553-big-lottery-grant-secures-future-of-community-adventure-scheme$1 [R=301,L]
+RewriteRule ^2011/01/01/get-fit-for-the-new-year(.*)$ /news-and-events/latest-news/view/21232-get-fit-for-the-new-year$1 [R=301,L]
+RewriteRule ^2011/01/06/green-light-for-hastings-active-women-project(.*)$ /news-and-events/latest-news/view/21688-green-light-for-hastings-active-women-project$1 [R=301,L]
+RewriteRule ^2011/01/07/new-life-for-king-alfred-courtesty-of-450000-gym(.*)$ /news-and-events/latest-news/view/21610-new-life-for-king-alfred-courtesty-of-450000-gym$1 [R=301,L]
+RewriteRule ^2011/01/10/40m-for-grassroots-sports-development(.*)$ /news-and-events/latest-news/view/21655-40m-for-grassroots-sports-development$1 [R=301,L]
+RewriteRule ^2011/01/17/job-vacancy-sport-development-coordinator(.*)$ /news-and-events/latest-news/view/21791-job-vacancy-sport-development-coordinator$1 [R=301,L]
+RewriteRule ^2011/01/18/nerurkar-woos-elite-runners-to-brighton-for-training-weekend(.*)$ /news-and-events/latest-news/view/21806-nerurkar-woos-elite-runners-to-brighton-for-training-weekend$1 [R=301,L]
+RewriteRule ^2011/01/18/new-job-vacancy-at-active-sussex(.*)$ /news-and-events/latest-news/view/21732-new-job-vacancy-at-active-sussex$1 [R=301,L]
+RewriteRule ^2011/01/20/quilter-wins-gold-at-german-open(.*)$ /news-and-events/latest-news/view/21856-quilter-wins-gold-at-german-open$1 [R=301,L]
+RewriteRule ^2011/01/21/win-up-to-5000-at-sports-club-of-the-year-awards(.*)$ /news-and-events/latest-news/view/21885-win-up-to-5000-at-sports-club-of-the-year-awards$1 [R=301,L]
+RewriteRule ^2011/01/28/double-your-money-with-sportsmatch(.*)$ /news-and-events/latest-news/view/22031-double-your-money-with-sportsmatch$1 [R=301,L]
+RewriteRule ^2011/01/28/job-vacancy(.*)$ /news-and-events/latest-news/view/21954-job-vacancy$1 [R=301,L]
+RewriteRule ^2011/02/02/warner-on-course-for-2012-after-world-championship-success(.*)$ /news-and-events/latest-news/view/22078-warner-on-course-for-2012-after-world-championship-success$1 [R=301,L]
+RewriteRule ^2011/02/08/beach-volleyball-court-to-be-built-in-worthing(.*)$ /news-and-events/latest-news/view/22149-beach-volleyball-court-to-be-built-in-worthing$1 [R=301,L]
+RewriteRule ^2011/02/08/hundreds-sign-up-for-coaching-database(.*)$ /news-and-events/latest-news/view/22115-hundreds-sign-up-for-coaching-database$1 [R=301,L]
+RewriteRule ^2011/02/08/wealden-pensioners-fit-for-life(.*)$ /news-and-events/latest-news/view/22131-wealden-pensioners-fit-for-life$1 [R=301,L]
+RewriteRule ^2011/02/09/hunt-confirms-school-games-funding(.*)$ /news-and-events/latest-news/view/22180-hunt-confirms-school-games-funding$1 [R=301,L]
+RewriteRule ^2011/02/23/coach-manager-training-pioneered-in-brighton(.*)$ /news-and-events/latest-news/view/21959-coach-manager-training-pioneered-in-brighton$1 [R=301,L]
+RewriteRule ^2011/03/02/smash-for-cash-raises-1600-for-war-veterans(.*)$ /news-and-events/latest-news/view/22413-smash-for-cash-raises-1600-for-war-veterans$1 [R=301,L]
+RewriteRule ^2011/03/10/eagles(.*)$ /news-and-events/latest-news/view/22359-eagles$1 [R=301,L]
+RewriteRule ^2011/03/14/supermarkets-and-hospitals-sign-up-to-keep-fit(.*)$ /news-and-events/latest-news/view/22415-supermarkets-and-hospitals-sign-up-to-keep-fit$1 [R=301,L]
+RewriteRule ^2011/03/16/wacky-race-raises-600-for-comic-relief(.*)$ /news-and-events/latest-news/view/22557-wacky-race-raises-600-for-comic-relief$1 [R=301,L]
+RewriteRule ^2011/03/22/impulse-leisure-latest-vacancies(.*)$ /news-and-events/latest-news/view/22658-impulse-leisure-latest-vacancies$1 [R=301,L]
+RewriteRule ^2011/03/23/mason-welcomes-420000-funding-for-school-games(.*)$ /news-and-events/latest-news/view/22625-mason-welcomes-420000-funding-for-school-games$1 [R=301,L]
+RewriteRule ^2011/03/29/jewish-and-arab-coaches-join-hands-at-football-camp(.*)$ /news-and-events/latest-news/view/22684-jewish-and-arab-coaches-join-hands-at-football-camp$1 [R=301,L]
+RewriteRule ^2011/04/04/wheelchair-basketball-table-officials-littlehampton(.*)$ /news-and-events/latest-news/view/22994-wheelchair-basketball-table-officials-littlehampton$1 [R=301,L]
+RewriteRule ^2011/04/04/win-two-tickets-to-wimbledon(.*)$ /news-and-events/latest-news/view/22910-win-two-tickets-to-wimbledon$1 [R=301,L]
+RewriteRule ^2011/04/05/latest-job-vacancies-sport-england-and-albion-in-the-community(.*)$ /news-and-events/latest-news/view/23084-latest-job-vacancies-sport-england-and-albion-in-the-community$1 [R=301,L]
+RewriteRule ^2011/04/06/private-company-to-run-national-sports-centres(.*)$ /news-and-events/latest-news/view/23097-private-company-to-run-national-sports-centres$1 [R=301,L]
+RewriteRule ^2011/04/11/active-sussex-secures-850000-sportivate-funds-for-sussex(.*)$ /news-and-events/latest-news/view/23132-active-sussex-secures-850000-sportivate-funds-for-sussex$1 [R=301,L]
+RewriteRule ^2011/04/17/double-victory-for-lewes-juniors(.*)$ /news-and-events/latest-news/view/23170-double-victory-for-lewes-juniors$1 [R=301,L]
+RewriteRule ^2011/04/21/sports-clubs-snap-up-free-networking-tools(.*)$ /news-and-events/latest-news/view/23016-sports-clubs-snap-up-free-networking-tools$1 [R=301,L]
+RewriteRule ^2011/04/28/missed-out-on-olympic-tickets(.*)$ /news-and-events/latest-news/view/23222-missed-out-on-olympic-tickets$1 [R=301,L]
+RewriteRule ^2011/05/03/help-shape-the-future-of-community-sport(.*)$ /news-and-events/latest-news/view/23253-help-shape-the-future-of-community-sport$1 [R=301,L]
+RewriteRule ^2011/05/03/latest-vacancy-physical-activity-co-ordinator(.*)$ /news-and-events/latest-news/view/23243-latest-vacancy-physical-activity-co-ordinator$1 [R=301,L]
+RewriteRule ^2011/05/10/sun-shines-on-second-brighton-marathon(.*)$ /news-and-events/latest-news/view/23318-sun-shines-on-second-brighton-marathon$1 [R=301,L]
+RewriteRule ^2011/05/10/young-squash-ace-helps-england-to-victory(.*)$ /news-and-events/latest-news/view/23375-young-squash-ace-helps-england-to-victory$1 [R=301,L]
+RewriteRule ^2011/05/11/angmering-student-wins-bronze-at-world-games(.*)$ /news-and-events/latest-news/view/23417-angmering-student-wins-bronze-at-world-games$1 [R=301,L]
+RewriteRule ^2011/05/11/leisure-trust-scheme-to-support-20-talented-local-athletes(.*)$ /news-and-events/latest-news/view/23388-leisure-trust-scheme-to-support-20-talented-local-athletes$1 [R=301,L]
+RewriteRule ^2011/05/11/volunteer-at-paddle-round-the-pier-brighton(.*)$ /news-and-events/latest-news/view/23400-volunteer-at-paddle-round-the-pier-brighton$1 [R=301,L]
+RewriteRule ^2011/05/18/shining-a-light-on-sussex(.*)$ /news-and-events/latest-news/view/23461-shining-a-light-on-sussex$1 [R=301,L]
+RewriteRule ^2011/05/19/special-offer-for-schools(.*)$ /news-and-events/latest-news/view/23432-special-offer-for-schools$1 [R=301,L]
+RewriteRule ^2011/05/25/lord-coe-visits-west-sussex-school(.*)$ /news-and-events/latest-news/view/23572-lord-coe-visits-west-sussex-school$1 [R=301,L]
+RewriteRule ^2011/05/27/champion-sprinter-to-guest-at-sussex-youth-games(.*)$ /news-and-events/latest-news/view/23332-champion-sprinter-to-guest-at-sussex-youth-games$1 [R=301,L]
+RewriteRule ^2011/06/14/brighton-project-to-help-working-women-back-into-sport(.*)$ /news-and-events/latest-news/view/23714-brighton-project-to-help-working-women-back-into-sport$1 [R=301,L]
+RewriteRule ^2011/06/20/french-number-one-bartoli-takes-title-in-eastbourne(.*)$ /news-and-events/latest-news/view/23768-french-number-one-bartoli-takes-title-in-eastbourne$1 [R=301,L]
+RewriteRule ^2011/06/20/gladiator-jenny-pacey-to-speak-at-active-sussex-conference(.*)$ /news-and-events/latest-news/view/23779-gladiator-jenny-pacey-to-speak-at-active-sussex-conference$1 [R=301,L]
+RewriteRule ^2011/06/23/gladiator-pacey-delivers-inspirational-address-to-brighton-conference(.*)$ /news-and-events/latest-news/view/23822-gladiator-pacey-delivers-inspirational-address-to-brighton-conference$1 [R=301,L]
+RewriteRule ^2011/06/24/brighton-embraces-sport-for-festival-fortnight(.*)$ /news-and-events/latest-news/view/23842-brighton-embraces-sport-for-festival-fortnight$1 [R=301,L]
+RewriteRule ^2011/06/27/invitational-to-support-disabled-british-open(.*)$ /news-and-events/latest-news/view/23803-invitational-to-support-disabled-british-open$1 [R=301,L]
+RewriteRule ^2011/06/27/sussex-badminton-expands-after-successful-season(.*)$ /news-and-events/latest-news/view/23895-sussex-badminton-expands-after-successful-season$1 [R=301,L]
+RewriteRule ^2011/06/28/manchester-csp-signs-up-to-tackle-homophobia-in-sport(.*)$ /news-and-events/latest-news/view/23909-manchester-csp-signs-up-to-tackle-homophobia-in-sport$1 [R=301,L]
+RewriteRule ^2011/06/28/young-sports-volunteers-given-opportunity-to-shine(.*)$ /news-and-events/latest-news/view/23927-young-sports-volunteers-given-opportunity-to-shine$1 [R=301,L]
+RewriteRule ^2011/07/01/join-one-year-to-go-olympic-celebrations(.*)$ /news-and-events/latest-news/view/23956-join-one-year-to-go-olympic-celebrations$1 [R=301,L]
+RewriteRule ^2011/07/05/amex-deepens-support-for-community-sport(.*)$ /news-and-events/latest-news/view/23991-amex-deepens-support-for-community-sport$1 [R=301,L]
+RewriteRule ^2011/07/05/phoenix-netball-win-gold-award(.*)$ /news-and-events/latest-news/view/24009-phoenix-netball-win-gold-award$1 [R=301,L]
+RewriteRule ^2011/07/07/major-sports-deliver-on-tv-revenues-promise(.*)$ /news-and-events/latest-news/view/24032-major-sports-deliver-on-tv-revenues-promise$1 [R=301,L]
+RewriteRule ^2011/07/11/sports-psychology-offered-to-talented-athletes(.*)$ /news-and-events/latest-news/view/24057-sports-psychology-offered-to-talented-athletes$1 [R=301,L]
+RewriteRule ^2011/07/12/successful-debut-for-coaches-breakfast(.*)$ /news-and-events/latest-news/view/24093-successful-debut-for-coaches-breakfast$1 [R=301,L]
+RewriteRule ^2011/07/13/sussex-school-games-plans-take-shape(.*)$ /news-and-events/latest-news/view/24078-sussex-school-games-plans-take-shape$1 [R=301,L]
+RewriteRule ^2011/08/03/chelsea-school-primes-olympic-hopefuls(.*)$ /news-and-events/latest-news/view/24225-chelsea-school-primes-olympic-hopefuls$1 [R=301,L]
+
+#Misc blog redirects
+RewriteRule ^tag(.*)$ /blog$1 [R=301,NC,L]
+RewriteRule ^newsblog(.*)$ /news-and-events/latest-news [R=301,NC,L]
+
+#Play Sport
+RewriteRule ^play-sport(.*)$ /contacts/find-your-sport [R=301,NC,L]
+
+#About us
+RewriteRule ^about-scsp/active-sussex-trustees/trustees-document-store /about-us/who-we-are/trustees/trustees-extranet [R=301,NC,L]
+RewriteRule ^about-scsp/active-sussex-trustees /about-us/who-we-are/trustees [R=301,NC,L]
+RewriteRule ^about-scsp/active-workplace /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/annual-report /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/andy-duck /contact-us/active-sussex-team/1-andy-duck [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/anthony-statham /contact-us/active-sussex-team/6-anthony-statham [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/diane-farmer /contact-us/active-sussex-team [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/donna-imrie /contact-us/active-sussex-team [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/geraldine-bloomfield /contact-us/active-sussex-team/5-geraldine-bloomfield [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/jo-irving /contact-us/active-sussex-team/7-joanna-irving [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/michal-krolaczyk /contact-us/active-sussex-team/10-michal-krolaczyk [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/michelle-collier /contact-us/active-sussex-team/3-michelle-collier [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/miguel-tello /contact-us/active-sussex-team/11-miguel-tello [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/rachel-land /contact-us/active-sussex-team [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/sadie-mason /contact-us/active-sussex-team/2-sadie-mason [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/sally-harper /contact-us/active-sussex-team/4-sally-harper [R=301,NC,L]
+RewriteRule ^about-scsp/core-team/active-sussex-core-team /contact-us/active-sussex-team [R=301,NC,L]
+RewriteRule ^about-scsp/core-team /contact-us/active-sussex-team [R=301,NC,L]
+RewriteRule ^about-scsp/county-sports-partnerships /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/health-benefits/useful-links /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/health-benefits /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/how-to-find-us-2 /contact-us/how-to-find-us [R=301,NC,L]
+RewriteRule ^about-scsp/job-vacancies /jobs/latest-vacancies [R=301,NC,L]
+RewriteRule ^about-scsp/looking-for-directions /contact-us/how-to-find-us [R=301,NC,L]
+RewriteRule ^about-scsp/marketing-and-communications/marketing-and-communications /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/marketing-and-communications-2 /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/sussex-csp-sports-photo-of-the-year /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/sussex-sport-and-health-network /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/sussex-sports-development-officers /about-us/what-we-do [R=301,NC,L]
+RewriteRule ^about-scsp/who-we-are /about-us/who-we-are [R=301,NC,L]
+RewriteRule ^about-scsp/your-comments /about-us/feedback [R=301,NC,L]
+RewriteRule ^about-scsp /about-us/who-we-are [R=301,NC,L]
+
+#Volunteering
+RewriteRule ^run-sport/volunteering-and-leadership(.*)$ /volunteering [R=301,NC,L]
+
+#Funding
+RewriteRule ^run-sport/sportivate/project-resources /funding/sportivate/project-resources [R=301,NC,L]
+RewriteRule ^run-sport/sportivate /funding/sportivate [R=301,NC,L]
+RewriteRule ^run-sport/funding/funding-for-athletes /funding/athletes [R=301,NC,L]
+RewriteRule ^run-sport/funding /funding [R=301,NC,L]
+
+#Docs
+RewriteRule ^wp-content/uploads/(.*)$ /images/imported/$1 [R=301,L]
+
+#Change 2012 to legacy (SE - 06/08/2012)
+RewriteRule ^2012(.*)$ /legacy$1 [R=301,L]
+
+
+
+## End - Custom redirects
+
+##
+# Uncomment following line if your webserver's URL
+# is not directly related to physical file paths.
+# Update Your Joomla! Directory (just / for root).
+##
+
+# RewriteBase /
+
+## Begin - Joomla! core SEF Section.
+#
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+#
+# If the requested path and file is not /index.php and the request
+# has not already been internally rewritten to the index.php script
+RewriteCond %{REQUEST_URI} !^/index\.php
+# and the request is for something within the component folder,
+# or for the site root, or for an extensionless URL, or the
+# requested URL ends with one of the listed extensions
+RewriteCond %{REQUEST_URI} /component/|(/[^.]*|\.(php|html?|feed|pdf|vcf|raw))$ [NC]
+# and the requested path and file doesn't directly match a physical file
+RewriteCond %{REQUEST_FILENAME} !-f
+# and the requested path and file doesn't directly match a physical folder
+RewriteCond %{REQUEST_FILENAME} !-d
+# internally rewrite the request to the index.php script
+RewriteRule .* index.php [L]
+#
+## End - Joomla! core SEF Section.

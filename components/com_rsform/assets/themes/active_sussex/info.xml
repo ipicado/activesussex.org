@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RSinstall version="1.5" type="rsformtheme">
+	<name>Active Sussex</name>
+	<creationDate>27 August 2011</creationDate>
+	<author>Traffic Websites</author>
+	<authorEmail>steve@trafficwebsites.co.uk</authorEmail>
+	<authorUrl>http://www.trafficwebsites.co.uk</authorUrl>
+	<copyright></copyright>
+	<license></license>
+	<version>1.0.0</version>
+	<description>Active Sussex Theme for RSForm! Pro 1.3.0</description>
+	
+	<css>css/style.css</css>
+</RSinstall>

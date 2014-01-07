@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="module" version="1.5.0" method="upgrade">
+	<name>RSBlog! recent posts</name>
+	<creationDate>26/10/2010</creationDate>
+	<author>www.rsjoomla.com</author>
+	<copyright>GNU General Public License</copyright>
+	<license>http://www.gnu.org/copyleft/gpl.html GNU/GPL</license>
+	<authorEmail>suport@rsjoomla.com</authorEmail>
+	<authorUrl>http://www.rsjoomla.com</authorUrl>
+	<version>1.0</version>
+	<description>Show recent posts from RSBlog!</description>
+	
+	<files>
+		<filename module="mod_rsblog_recent">mod_rsblog_recent.php</filename>
+		<filename>index.html</filename>
+		<filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+	</files>
+	
+	<languages>
+        <language tag="en-GB">language/en-GB.mod_rsblog_recent.ini</language>
+    </languages>
+	
+	<params>
+		<param name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+		<param name="catid" type="text" label="Category ID" description="" size="10" />
+		<param name="days" type="text" default="4" label="RSB_MODULE_RECENT_DAYS" description="RSB_MODULE_RECENT_DAYS_DESC" size="10" />
+		<param name="limit" type="text" default="10" label="RSB_MODULE_RECENT_LIMIT" description="RSB_MODULE_RECENT_LIMIT_DESC" size="10" />
+		<param name="ordering" type="list" default="DESC" label="RSB_MODULE_RECENT_ORDERING" description="RSB_MODULE_RECENT_ORDERING_DESC">
+			<option value="DESC">RSB_MODULE_RECENT_DESCENDING</option>
+			<option value="ASC">RSB_MODULE_RECENT_ASCENDING</option>
+		</param>
+		<param name="links" type="list" default="0" label="RSB_MODULE_RECENT_OPEN_LINKS" description="RSB_MODULE_RECENT_OPEN_LINKS_DESC">
+			<option value="0">RSB_MODULE_RECENT_SAME_PAGE</option>
+			<option value="1">RSB_MODULE_RECENT_NEW_PAGE</option>
+		</param>
+	</params>
+	
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="moduleclass_sfx" type="text" default="" label="Module Class Suffix" description="PARAMMODULECLASSSUFFIX" />
+				<field name="catid" type="text" label="Category ID" description="" size="10" />
+				<field name="days" type="text" default="4" label="RSB_MODULE_RECENT_DAYS" description="RSB_MODULE_RECENT_DAYS_DESC" size="10" />
+				<field name="limit" type="text" default="10" label="RSB_MODULE_RECENT_LIMIT" description="RSB_MODULE_RECENT_LIMIT_DESC" size="10" />
+				<field name="ordering" type="list" default="DESC" label="RSB_MODULE_RECENT_ORDERING" description="RSB_MODULE_RECENT_ORDERING_DESC">
+					<option value="DESC">RSB_MODULE_RECENT_DESCENDING</option>
+					<option value="ASC">RSB_MODULE_RECENT_ASCENDING</option>
+				</field>
+				<field name="links" type="list" default="0" label="RSB_MODULE_RECENT_OPEN_LINKS" description="RSB_MODULE_RECENT_OPEN_LINKS_DESC">
+					<option value="0">RSB_MODULE_RECENT_SAME_PAGE</option>
+					<option value="1">RSB_MODULE_RECENT_NEW_PAGE</option>
+				</field>
+			</fieldset>
+			<fieldset
+				name="advanced">
+
+				<field
+					name="layout"
+					type="modulelayout"
+					label="JFIELD_ALT_LAYOUT_LABEL"
+					description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+			</fieldset>
+		</fields>	
+	</config>
+
+	
+</install>

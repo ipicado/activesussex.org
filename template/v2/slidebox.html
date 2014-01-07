@@ -1,0 +1,112 @@
+<html>
+<head>
+<style type="text/css">
+
+/* SLIDE BOXES
+-----------------------------------------------------------------------------------*/
+.slidebox {
+	overflow: hidden;
+	background-color: #fdb813; /*Default colour*/
+	margin-bottom: 20px;
+	position: relative;
+}
+.slidebox h3 {
+	color: #FFF !important;
+	font-size: 20px !important;
+	font-style: italic;
+	line-height: 26px;
+	padding-top: 4px;
+	border-bottom: 1px solid #FFF;
+	margin-bottom: 8px;
+	text-indent: 12px;
+}
+.slidebox .slideshow {
+	width: 172px;
+	height: 90px;
+	overflow: hidden;
+}
+.slidebox .slideshow .slide {
+	width: 100%;
+	height: 100%;
+}
+.slidenav {
+	position: absolute;
+	width: 172px;
+	top: 86px;
+	left: 0;
+	z-index: 100;
+}
+.slidenav .prev,
+.slidenav .next {
+	float: left;
+	background-position: -9px -167px;
+	width: 22px;
+	padding: 30px 0 0 0;
+	height /**/: 30px;
+}
+.slidenav .next {
+	float: right;
+	background-position: 0px -197px;
+}
+.slidebox p.slidelink {
+	margin: 0 0 0 12px;
+}
+.slidebox p.slidelink a {
+	color: #FFF;
+	text-decoration: none;
+	font-size: 11px;
+	line-height: 30px;
+}
+.slidebox a.slidelink:hover {
+	text-decoration: underline;
+}
+
+</style>
+</head>
+<body>
+<div class="sidebar_item">
+	<div class="slidebox">
+		<h3>2012 in Sussex</h3>
+		<div class="slideshow">
+			<div class="slide">
+				<img src="images/placeholder.gif" alt="placeholder" width="100%" height="100%" />
+				<div style="display: none">Link 1</div>
+			</div>
+			<div class="slide">
+				<img src="images/placeholder.gif" alt="placeholder" width="100%" height="100%" />
+				<div style="display: none">Link 2</div>
+			</div>
+			<div class="slide">
+				<img src="images/placeholder.gif" alt="placeholder" width="100%" height="100%" />
+				<div style="display: none">Link 3</div>
+			</div>
+		</div>
+		<div class="slidenav">
+			<a class="prev" href="#">Previous</a>
+			<a class="next" href="#">Next</a>
+		</div>
+		<p class="slidelink"><a href="#">Link</a></p>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$('.slidebox .slideshow').cycle({ 
+			fx: 'scrollHorz',
+			speed: 500,
+			timeout: 0,
+			after: function() {
+				$(this).parent().siblings('.slidelink').find('a').html($(this).find('div').html());
+			}
+		});
+		$('.slidebox .slidenav .prev').click(function() {
+	    		$(this).parent().siblings('.slideshow').cycle('prev');
+	    	return false;
+		});
+		$('.slidebox .slidenav .next').click(function() {
+	    		$(this).parent().siblings('.slideshow').cycle('next');
+	    	return false;
+		});
+	});
+</script>
+</body>
+</html>
